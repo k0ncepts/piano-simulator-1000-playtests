@@ -1,0 +1,19 @@
+{
+ "slug": "silo-s2e4-outro",
+ "title": "Silo Season 2 Episode 4 Outro Song",
+ "credit": "Music by Loney Dear",
+ "channel": "Archane Veritas",
+ "youtube": {
+  "videoId": "JRtSshjy7CI",
+  "url": "https://www.youtube.com/watch?v=JRtSshjy7CI"
+ },
+ "durationSeconds": 54.933,
+ "default": "main",
+ "versions": [
+  "a",
+  "b",
+  "c"
+ ],
+ "build": "b4e489597a",
+ "generated": "2026-09-21"
+}
