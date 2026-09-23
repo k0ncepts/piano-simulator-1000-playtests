@@ -1,0 +1,37 @@
+{
+ "slug": "nier-automata-medley",
+ "title": "NieR:Automata \u2014 Soundtrack Medley",
+ "credit": "Piano arrangement by Animenz \u00b7 music by Keiichi Okabe, Keigo Hoashi and Kuniyuki Takahashi",
+ "channel": "Animenz Piano Sheets",
+ "youtube": {
+  "videoId": "RsWX6GYSTxc",
+  "url": "https://www.youtube.com/watch?v=RsWX6GYSTxc"
+ },
+ "durationSeconds": 944.913,
+ "sections": [
+  {
+   "title": "1. City Ruins",
+   "startSeconds": 0.0
+  },
+  {
+   "title": "2. Memories of Dust",
+   "startSeconds": 190.0
+  },
+  {
+   "title": "3. Amusement Park",
+   "startSeconds": 381.0
+  },
+  {
+   "title": "4. Vague Hope",
+   "startSeconds": 563.0
+  },
+  {
+   "title": "5. A Beautiful Song",
+   "startSeconds": 743.0
+  }
+ ],
+ "default": "main",
+ "versions": [],
+ "build": "a32b0795c5",
+ "generated": "2026-09-23"
+}
