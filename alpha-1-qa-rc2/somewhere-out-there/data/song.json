@@ -1,0 +1,17 @@
+{
+ "slug": "somewhere-out-there",
+ "title": "Somewhere Out There",
+ "credit": "Piano solo by Kyle Landry \u00b7 music by James Horner and Barry Mann",
+ "channel": "kylelandry",
+ "youtube": {
+  "videoId": "8c0eHt5YmNg",
+  "url": "https://www.youtube.com/watch?v=8c0eHt5YmNg"
+ },
+ "note": "Source playback unavailable: this video's owner does not allow it to be embedded, so the recording cannot play inside the page. It is still on YouTube, linked from the page, and the generated piano works normally.",
+ "durationSeconds": 245.342,
+ "sections": [],
+ "default": "main",
+ "versions": [],
+ "build": "c17bbf2159",
+ "generated": "2026-09-23"
+}

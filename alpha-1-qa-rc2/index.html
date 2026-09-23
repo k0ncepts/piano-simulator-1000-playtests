@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content="dark" />
+    <title>Alpha 1 — QA Candidate 2 · Piano Simulator 1000</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314141a'/%3E%3Crect x='4' y='6' width='7' height='20' rx='1.5' fill='%23fbfbfd'/%3E%3Crect x='12.5' y='6' width='7' height='20' rx='1.5' fill='%23ffc46b'/%3E%3Crect x='21' y='6' width='7' height='20' rx='1.5' fill='%23fbfbfd'/%3E%3Crect x='9' y='6' width='5' height='12' rx='1' fill='%231d1d22'/%3E%3Crect x='18' y='6' width='5' height='12' rx='1' fill='%231d1d22'/%3E%3C/svg%3E" />
+    <style>
+      :root {
+        --bg: #14141a;
+        --panel: #1e1e27;
+        --border: #2e2e3c;
+        --text: #e9e9f2;
+        --muted: #9b9bb0;
+        --accent: #7c9cff;
+        --warn: #ffc46b;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      main {
+        max-width: 54rem;
+        margin: 0 auto;
+        padding: 40px 16px 64px;
+      }
+      h1 {
+        font-size: 27px;
+        line-height: 1.2;
+        margin: 0 0 6px;
+        text-wrap: balance;
+      }
+      h2 {
+        font-size: 18px;
+        margin: 34px 0 10px;
+      }
+      h3 {
+        font-size: 17px;
+        line-height: 1.3;
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+      p {
+        max-width: 42rem;
+      }
+      .sub {
+        font-size: 17px;
+        color: var(--accent);
+        font-weight: 600;
+        margin: 0 0 10px;
+      }
+      .build {
+        display: inline-block;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 12.5px;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 3px 8px;
+        margin: 0 0 18px;
+      }
+      .notice {
+        background: #26201a;
+        border: 1px solid #4a3a24;
+        border-left: 3px solid var(--warn);
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin: 0 0 26px;
+        max-width: none;
+      }
+      .notice strong {
+        color: var(--warn);
+      }
+      ul.songs {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+        gap: 14px;
+      }
+      .card {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 18px;
+        min-width: 0;
+      }
+      .credit {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 0;
+      }
+      .duration {
+        color: var(--muted);
+        font-size: 13px;
+        font-variant-numeric: tabular-nums;
+        margin: 0 0 10px;
+      }
+      .open {
+        margin-top: auto;
+        align-self: flex-start;
+        background: var(--accent);
+        color: #0e1330;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 7px;
+        padding: 8px 14px;
+      }
+      .open:hover {
+        filter: brightness(1.08);
+      }
+      .open:focus-visible,
+      a:focus-visible {
+        outline: 2px solid var(--text);
+        outline-offset: 2px;
+      }
+      ol,
+      ul.plain {
+        padding-left: 20px;
+        max-width: 42rem;
+      }
+      ul.targets {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 8px;
+        max-width: 42rem;
+      }
+      ul.targets li {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 10px 13px;
+      }
+      ul.targets a {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+      }
+      ul.targets a:hover {
+        text-decoration: underline;
+      }
+      .whats-new {
+        background: #1c2233;
+        border: 1px solid #33406b;
+        border-left: 3px solid var(--accent);
+        border-radius: 8px;
+        padding: 11px 14px;
+        margin: 0 0 26px;
+        max-width: none;
+        font-size: 14px;
+      }
+      .song-note {
+        background: #26201a;
+        border-left: 3px solid var(--warn);
+        border-radius: 5px;
+        padding: 7px 10px;
+        margin: 0 0 12px;
+        color: #e7d7bf;
+        font-size: 12.5px;
+        line-height: 1.45;
+      }
+      .why {
+        display: block;
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 2px;
+      }
+      .report {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 16px 18px;
+        max-width: none;
+      }
+      .report p:last-child {
+        margin-bottom: 0;
+      }
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.92em;
+        background: #15151d;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 1px 5px;
+      }
+      footer {
+        margin-top: 40px;
+        color: var(--muted);
+        font-size: 12px;
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Piano Simulator 1000</h1>
+      <p class="sub">Alpha 1 — QA Candidate 2</p>
+      <p class="build">build alpha-1-qa-rc2+68f6c56 · 2026-09-23</p>
+
+      <p class="notice">
+        <strong>This is a QA candidate, not a release.</strong> It is here so a few people can
+        break it before anything is called "Alpha build 1". Everything below was produced
+        automatically from a recording and published unedited — the mistakes are the point.
+      </p>
+      <p class="whats-new"><strong>What changed:</strong> Two more songs, NF — HAPPY and Somewhere Out There. The transcription engine is identical to RC1: NieR&#39;s and Silo&#39;s scores here are byte-for-byte the ones RC1 published.</p>
+
+
+      <p>
+        Open a song, press play, and the notation and keyboard follow the recording. Tap a bar to
+        jump there; loop a few bars and slow them down. Nothing to install, nothing to sign in to,
+        and nothing you do here is sent anywhere.
+      </p>
+
+      <h2>The songs</h2>
+      <ul class="songs">
+      <li class="card">
+        <h3>NF — HAPPY</h3>
+        <p class="credit">Piano version by keudae · music by NF</p>
+        <p class="duration">4:18</p>
+        <a class="open" href="./nf-happy/">Open NF — HAPPY</a>
+      </li>
+      <li class="card">
+        <h3>NieR:Automata — Soundtrack Medley</h3>
+        <p class="credit">Piano arrangement by Animenz · music by Keiichi Okabe, Keigo Hoashi and Kuniyuki Takahashi</p>
+        <p class="duration">15:45</p>
+        <a class="open" href="./nier-automata-medley/">Open NieR:Automata — Soundtrack Medley</a>
+      </li>
+      <li class="card">
+        <h3>Silo Season 2 Episode 4 Outro Song</h3>
+        <p class="credit">Music by Loney Dear</p>
+        <p class="duration">0:55</p>
+        <p class="song-note">This recording is not a piano — it has vocals, synths and percussion. The piano model declined to hear most of it, so this page is deliberately sparse. That is the finding, not a bug.</p>
+        <a class="open" href="./silo-s2e4-outro/">Open Silo Season 2 Episode 4 Outro Song</a>
+      </li>
+      <li class="card">
+        <h3>Somewhere Out There</h3>
+        <p class="credit">Piano solo by Kyle Landry · music by James Horner and Barry Mann</p>
+        <p class="duration">4:05</p>
+        <p class="song-note">Source playback unavailable: this video&#39;s owner does not allow it to be embedded, so the recording cannot play inside the page. It is still on YouTube, linked from the page, and the generated piano works normally.</p>
+        <a class="open" href="./somewhere-out-there/">Open Somewhere Out There</a>
+      </li>
+      </ul>
+
+      <h2>What to test</h2>
+      <ol>
+        <li><strong>Does it sound like the song?</strong> Play the recording, then the generated
+          piano. Notes that are missing, invented or in the wrong octave are the most useful thing
+          you can find.</li>
+        <li><strong>Can you read it?</strong> Look at the notation while it plays. Is the music on
+          a staff that makes sense, and can you follow a line with your eye?</li>
+        <li><strong>Can you practise from it?</strong> Loop a few bars, slow them to 50%, switch to
+          one hand. Does the loop land where you asked, and stay there?</li>
+        <li><strong>Does it break?</strong> Seek around, change speed mid-phrase, switch between
+          the recording and the piano, turn your phone sideways, reload the page.</li>
+      </ol>
+
+      <h2>For the musician reviewers</h2>
+      <p>
+        These links open on the passage and loop it. The question is not whether the notes are
+        right — it is whether a person could read and play what is on the page.
+      </p>
+      <ul class="targets">
+        <li>
+          <a href="./nier-automata-medley/?bars=83-90">NieR — bars 83–90</a>
+          <span class="why">The passage PD-3 was built for: the left hand used to be stranded on a bass staff it had left. This is where the staff distribution should be visibly better.</span>
+        </li>
+        <li>
+          <a href="./nier-automata-medley/?bars=93-119">NieR — bars 93–119</a>
+          <span class="why">What happens around that change. A repair that fixes one passage and unsettles its neighbours is not a repair.</span>
+        </li>
+        <li>
+          <a href="./nier-automata-medley/?bars=1-22">NieR — bars 1–22</a>
+          <span class="why">Ordinary two-staff writing that PD-3 should not have touched. If anything here reads worse than it used to, that is a regression.</span>
+        </li>
+        <li>
+          <a href="./nf-happy/?bars=20-45">NF — bars 20–45</a>
+          <span class="why">This song opens with both staves in bass clef and the upper staff changes at bar 24 and again at 41. Does the page follow the music, or does it just keep changing its mind?</span>
+        </li>
+        <li>
+          <a href="./nf-happy/?bars=70-85">NF — bars 70–85</a>
+          <span class="why">Two more changes close together, at 73 and 77. Short alternations are where clef planning is most likely to be annoying to read.</span>
+        </li>
+      </ul>
+      <p>For each one, we would like to know:</p>
+      <ul class="plain">
+        <li>Are the clefs and staff changes easier to read?</li>
+        <li>Are the musical lines easy to follow?</li>
+        <li>Are there remaining collisions or overcrowded passages?</li>
+        <li>Could you actually practise this section?</li>
+      </ul>
+
+      <h2>Report an issue</h2>
+      <div class="report">
+        <p>
+          Every song page has a <strong>Report an issue</strong> panel at the bottom. It asks what
+          kind of problem it was, what happened, and what you expected — and it attaches where you
+          were: the bar, the time, the speed, the hand mode and the loop.
+        </p>
+        <p>
+          There is no server behind it. Your report is <strong>saved on this device</strong> until
+          you press <strong>Copy report</strong> or <strong>Download</strong> and send it back to
+          whoever gave you this link. It survives a reload, so you can collect several and send
+          them together.
+        </p>
+      </div>
+
+      <h2>Known limitations</h2>
+      <ul class="plain">
+        <li>The notes and the rhythm are worked out automatically, and both are imperfect. There
+          is no accuracy figure to quote and we are not going to invent one.</li>
+        <li>Solo piano and mixed-instrument music are different problems. A piano recording is
+          what this is built for; a song with vocals, synths and drums is much harder, and one of
+          the two songs here is exactly that case.</li>
+        <li>Dense passages can still be hard to read.</li>
+        <li>Conventional printed pickups (upbeats) are not finished.</li>
+        <li>MIDI keyboard support depends on your browser: Chrome and Edge on desktop can do it,
+          Safari and Firefox generally cannot. Without a keyboard the page still plays and lights
+          the notes — it just does not grade you.</li>
+        <li><strong>No physical MIDI keyboard has been tested on this build.</strong> The MIDI path
+          has been exercised with a simulated keyboard only.</li>
+        <li>An experimental metrical analysis that we measured and rejected is switched off here.</li>
+      </ul>
+
+      <h2>What this build is not</h2>
+      <p>
+        You cannot add your own song: turning a recording into a page needs a machine with the
+        models on it, and that is done on our side. There are no accounts, no uploads and no
+        payments. A "faithful score" here means the page shows what the app decided — not that
+        what it decided matches the original recording.
+      </p>
+
+      <footer>
+        Build alpha-1-qa-rc2+68f6c56. The original recordings play from YouTube and are not
+        stored on this site. Piano sound: Salamander Grand Piano by Alexander Holm (CC BY 3.0).
+        Notation: OpenSheetMusicDisplay. Audio: Tone.js.
+      </footer>
+    </main>
+  </body>
+</html>
