@@ -1,0 +1,147 @@
+{
+ "label": "Alpha 1 — QA Candidate 2",
+ "build": "alpha-1-qa-rc2+68f6c56",
+ "published": "2026-09-25",
+ "songs": [
+  {
+   "slug": "nf-happy",
+   "title": "NF — HAPPY",
+   "songBuild": "bc61c81222",
+   "files": [
+    {
+     "file": "nf-happy_letter.pdf",
+     "paper": "US Letter",
+     "fingering": "shown",
+     "pages": 18,
+     "bytes": 2729010
+    },
+    {
+     "file": "nf-happy_letter_no-fingering.pdf",
+     "paper": "US Letter",
+     "fingering": "hidden",
+     "pages": 13,
+     "bytes": 2345986
+    },
+    {
+     "file": "nf-happy_a4.pdf",
+     "paper": "A4",
+     "fingering": "shown",
+     "pages": 16,
+     "bytes": 2733499
+    },
+    {
+     "file": "nf-happy_a4_no-fingering.pdf",
+     "paper": "A4",
+     "fingering": "hidden",
+     "pages": 13,
+     "bytes": 2355376
+    }
+   ]
+  },
+  {
+   "slug": "nier-automata-medley",
+   "title": "NieR:Automata — Soundtrack Medley",
+   "songBuild": "a32b0795c5",
+   "files": [
+    {
+     "file": "nier-automata-medley_letter.pdf",
+     "paper": "US Letter",
+     "fingering": "shown",
+     "pages": 59,
+     "bytes": 9878106
+    },
+    {
+     "file": "nier-automata-medley_letter_no-fingering.pdf",
+     "paper": "US Letter",
+     "fingering": "hidden",
+     "pages": 48,
+     "bytes": 8382544
+    },
+    {
+     "file": "nier-automata-medley_a4.pdf",
+     "paper": "A4",
+     "fingering": "shown",
+     "pages": 57,
+     "bytes": 9903103
+    },
+    {
+     "file": "nier-automata-medley_a4_no-fingering.pdf",
+     "paper": "A4",
+     "fingering": "hidden",
+     "pages": 47,
+     "bytes": 8417564
+    }
+   ]
+  },
+  {
+   "slug": "silo-s2e4-outro",
+   "title": "Silo Season 2 Episode 4 Outro Song",
+   "songBuild": "ac97a4e0b8",
+   "files": [
+    {
+     "file": "silo-s2e4-outro_letter.pdf",
+     "paper": "US Letter",
+     "fingering": "shown",
+     "pages": 1,
+     "bytes": 149168
+    },
+    {
+     "file": "silo-s2e4-outro_letter_no-fingering.pdf",
+     "paper": "US Letter",
+     "fingering": "hidden",
+     "pages": 1,
+     "bytes": 142034
+    },
+    {
+     "file": "silo-s2e4-outro_a4.pdf",
+     "paper": "A4",
+     "fingering": "shown",
+     "pages": 1,
+     "bytes": 149016
+    },
+    {
+     "file": "silo-s2e4-outro_a4_no-fingering.pdf",
+     "paper": "A4",
+     "fingering": "hidden",
+     "pages": 1,
+     "bytes": 141848
+    }
+   ]
+  },
+  {
+   "slug": "somewhere-out-there",
+   "title": "Somewhere Out There",
+   "songBuild": "c17bbf2159",
+   "files": [
+    {
+     "file": "somewhere-out-there_letter.pdf",
+     "paper": "US Letter",
+     "fingering": "shown",
+     "pages": 14,
+     "bytes": 2331515
+    },
+    {
+     "file": "somewhere-out-there_letter_no-fingering.pdf",
+     "paper": "US Letter",
+     "fingering": "hidden",
+     "pages": 12,
+     "bytes": 1987636
+    },
+    {
+     "file": "somewhere-out-there_a4.pdf",
+     "paper": "A4",
+     "fingering": "shown",
+     "pages": 13,
+     "bytes": 2334979
+    },
+    {
+     "file": "somewhere-out-there_a4_no-fingering.pdf",
+     "paper": "A4",
+     "fingering": "hidden",
+     "pages": 11,
+     "bytes": 1989807
+    }
+   ]
+  }
+ ]
+}

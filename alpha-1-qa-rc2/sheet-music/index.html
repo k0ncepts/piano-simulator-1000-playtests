@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content="dark" />
+    <title>Printable sheet music · Alpha 1 — QA Candidate 2 · Piano Simulator 1000</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314141a'/%3E%3Crect x='4' y='6' width='7' height='20' rx='1.5' fill='%23fbfbfd'/%3E%3Crect x='12.5' y='6' width='7' height='20' rx='1.5' fill='%23ffc46b'/%3E%3Crect x='21' y='6' width='7' height='20' rx='1.5' fill='%23fbfbfd'/%3E%3Crect x='9' y='6' width='5' height='12' rx='1' fill='%231d1d22'/%3E%3Crect x='18' y='6' width='5' height='12' rx='1' fill='%231d1d22'/%3E%3C/svg%3E" />
+    <style>
+      :root {
+        --bg: #14141a;
+        --panel: #1e1e27;
+        --border: #2e2e3c;
+        --text: #e9e9f2;
+        --muted: #9b9bb0;
+        --accent: #7c9cff;
+        --warn: #ffc46b;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+      }
+      main {
+        max-width: 54rem;
+        margin: 0 auto;
+        padding: 28px 16px 64px;
+      }
+      .crumb {
+        margin: 0 0 18px;
+        font-size: 14px;
+      }
+      .crumb a,
+      .player {
+        color: var(--accent);
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .crumb a:hover,
+      .player:hover {
+        text-decoration: underline;
+      }
+      h1 {
+        font-size: 27px;
+        line-height: 1.2;
+        margin: 0 0 6px;
+        text-wrap: balance;
+      }
+      h2 {
+        font-size: 18px;
+        line-height: 1.3;
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+      p {
+        max-width: 42rem;
+      }
+      .sub {
+        font-size: 17px;
+        color: var(--accent);
+        font-weight: 600;
+        margin: 0 0 10px;
+      }
+      .build {
+        display: inline-block;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 12.5px;
+        color: var(--muted);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 3px 8px;
+        margin: 0 0 18px;
+      }
+      .notice {
+        background: #26201a;
+        border: 1px solid #4a3a24;
+        border-left: 3px solid var(--warn);
+        border-radius: 8px;
+        padding: 12px 14px;
+        margin: 0 0 18px;
+        max-width: none;
+      }
+      .notice strong {
+        color: var(--warn);
+      }
+      .tip {
+        background: #1c2233;
+        border: 1px solid #33406b;
+        border-left: 3px solid var(--accent);
+        border-radius: 8px;
+        padding: 11px 14px;
+        max-width: none;
+        font-size: 14px;
+      }
+      ul.songs {
+        list-style: none;
+        margin: 26px 0 0;
+        padding: 0;
+        display: grid;
+        gap: 16px;
+      }
+      .song {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 18px;
+        min-width: 0;
+        scroll-margin-top: 12px;
+      }
+      .song:target {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
+      }
+      .credit {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 4px 0 0;
+      }
+      .song-note {
+        background: #26201a;
+        border-left: 3px solid var(--warn);
+        border-radius: 5px;
+        padding: 7px 10px;
+        margin: 10px 0 0;
+        color: #e7d7bf;
+        font-size: 12.5px;
+        line-height: 1.45;
+      }
+      ul.files {
+        list-style: none;
+        margin: 14px 0;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 18rem), 1fr));
+        gap: 10px;
+      }
+      .file {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        background: #181820;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 11px 12px 12px;
+        min-width: 0;
+      }
+      .file-name {
+        font-weight: 600;
+      }
+      .file-facts {
+        color: var(--muted);
+        font-size: 13px;
+        font-variant-numeric: tabular-nums;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      .actions a {
+        flex: 1 1 auto;
+        text-align: center;
+        border-radius: 7px;
+        padding: 8px 12px;
+        font-weight: 600;
+        text-decoration: none;
+      }
+      .open-pdf {
+        background: var(--accent);
+        color: #0e1330;
+      }
+      .open-pdf:hover {
+        filter: brightness(1.08);
+      }
+      .save-pdf {
+        border: 1px solid #3b4a7a;
+        color: var(--accent);
+      }
+      .save-pdf:hover {
+        border-color: var(--accent);
+      }
+      a:focus-visible {
+        outline: 2px solid var(--text);
+        outline-offset: 2px;
+      }
+      footer {
+        margin-top: 40px;
+        color: var(--muted);
+        font-size: 12px;
+        border-top: 1px solid var(--border);
+        padding-top: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <p class="crumb"><a href="../">← Alpha 1 — QA Candidate 2</a></p>
+      <h1>Printable sheet music</h1>
+      <p class="sub">Alpha 1 — QA Candidate 2</p>
+      <p class="build">build alpha-1-qa-rc2+68f6c56 · PDFs added 2026-09-25</p>
+
+      <p class="notice">
+        <strong>Printed exactly as generated.</strong> Each PDF is the notation this build's song
+        page shows, with the same notes and the same rhythm, so it has the same transcription and
+        rhythm mistakes. Making it printable did not fix any of them, and some dense passages are
+        still crowded.
+      </p>
+
+      <p>
+        Pick a song and a paper size. <strong>Open PDF</strong> shows it in your browser; print it
+        from there with the viewer's print button, or Ctrl+P (⌘P on a Mac).
+        <strong>Download PDF</strong> saves a copy. If your browser opens the file instead of
+        saving it, save or share it from the viewer, or print straight from there. US Letter is
+        the usual paper in the US and Canada, A4 almost everywhere else.
+      </p>
+      <p class="tip">
+        <strong>With or without fingering?</strong> The finger numbers were generated too, and in
+        dense passages some are drawn well away from their notes or on top of other marks. The
+        versions without fingering have the same notes without the numbers, so they avoid that
+        clutter, though not every crowded passage.
+      </p>
+
+      <ul class="songs">
+        <li class="song" id="nf-happy">
+          <h2>NF — HAPPY</h2>
+          <p class="credit">Piano version by keudae · music by NF</p>
+          <ul class="files">
+            <li class="file">
+              <span class="file-name">US Letter — with fingering</span>
+              <span class="file-facts">18 pages · 2.7 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="nf-happy_letter.pdf" target="_blank" rel="noopener" aria-label="Open NF — HAPPY, US Letter — with fingering (PDF, 18 pages · 2.7 MB)">Open PDF</a>
+                <a class="save-pdf" href="nf-happy_letter.pdf" download="nf-happy_letter.pdf" type="application/pdf" aria-label="Download NF — HAPPY, US Letter — with fingering (PDF, 18 pages · 2.7 MB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">US Letter — without fingering</span>
+              <span class="file-facts">13 pages · 2.3 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="nf-happy_letter_no-fingering.pdf" target="_blank" rel="noopener" aria-label="Open NF — HAPPY, US Letter — without fingering (PDF, 13 pages · 2.3 MB)">Open PDF</a>
+                <a class="save-pdf" href="nf-happy_letter_no-fingering.pdf" download="nf-happy_letter_no-fingering.pdf" type="application/pdf" aria-label="Download NF — HAPPY, US Letter — without fingering (PDF, 13 pages · 2.3 MB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">A4 — with fingering</span>
+              <span class="file-facts">16 pages · 2.7 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="nf-happy_a4.pdf" target="_blank" rel="noopener" aria-label="Open NF — HAPPY, A4 — with fingering (PDF, 16 pages · 2.7 MB)">Open PDF</a>
+                <a class="save-pdf" href="nf-happy_a4.pdf" download="nf-happy_a4.pdf" type="application/pdf" aria-label="Download NF — HAPPY, A4 — with fingering (PDF, 16 pages · 2.7 MB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">A4 — without fingering</span>
+              <span class="file-facts">13 pages · 2.4 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="nf-happy_a4_no-fingering.pdf" target="_blank" rel="noopener" aria-label="Open NF — HAPPY, A4 — without fingering (PDF, 13 pages · 2.4 MB)">Open PDF</a>
+                <a class="save-pdf" href="nf-happy_a4_no-fingering.pdf" download="nf-happy_a4_no-fingering.pdf" type="application/pdf" aria-label="Download NF — HAPPY, A4 — without fingering (PDF, 13 pages · 2.4 MB)">Download PDF</a>
+              </span>
+            </li>
+          </ul>
+          <a class="player" href="../nf-happy/">Back to the song player</a>
+        </li>
+        <li class="song" id="nier-automata-medley">
+          <h2>NieR:Automata — Soundtrack Medley</h2>
+          <p class="credit">Piano arrangement by Animenz · music by Keiichi Okabe, Keigo Hoashi and Kuniyuki Takahashi</p>
+          <ul class="files">
+            <li class="file">
+              <span class="file-name">US Letter — with fingering</span>
+              <span class="file-facts">59 pages · 9.9 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="nier-automata-medley_letter.pdf" target="_blank" rel="noopener" aria-label="Open NieR:Automata — Soundtrack Medley, US Letter — with fingering (PDF, 59 pages · 9.9 MB)">Open PDF</a>
+                <a class="save-pdf" href="nier-automata-medley_letter.pdf" download="nier-automata-medley_letter.pdf" type="application/pdf" aria-label="Download NieR:Automata — Soundtrack Medley, US Letter — with fingering (PDF, 59 pages · 9.9 MB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">US Letter — without fingering</span>
+              <span class="file-facts">48 pages · 8.4 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="nier-automata-medley_letter_no-fingering.pdf" target="_blank" rel="noopener" aria-label="Open NieR:Automata — Soundtrack Medley, US Letter — without fingering (PDF, 48 pages · 8.4 MB)">Open PDF</a>
+                <a class="save-pdf" href="nier-automata-medley_letter_no-fingering.pdf" download="nier-automata-medley_letter_no-fingering.pdf" type="application/pdf" aria-label="Download NieR:Automata — Soundtrack Medley, US Letter — without fingering (PDF, 48 pages · 8.4 MB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">A4 — with fingering</span>
+              <span class="file-facts">57 pages · 9.9 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="nier-automata-medley_a4.pdf" target="_blank" rel="noopener" aria-label="Open NieR:Automata — Soundtrack Medley, A4 — with fingering (PDF, 57 pages · 9.9 MB)">Open PDF</a>
+                <a class="save-pdf" href="nier-automata-medley_a4.pdf" download="nier-automata-medley_a4.pdf" type="application/pdf" aria-label="Download NieR:Automata — Soundtrack Medley, A4 — with fingering (PDF, 57 pages · 9.9 MB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">A4 — without fingering</span>
+              <span class="file-facts">47 pages · 8.4 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="nier-automata-medley_a4_no-fingering.pdf" target="_blank" rel="noopener" aria-label="Open NieR:Automata — Soundtrack Medley, A4 — without fingering (PDF, 47 pages · 8.4 MB)">Open PDF</a>
+                <a class="save-pdf" href="nier-automata-medley_a4_no-fingering.pdf" download="nier-automata-medley_a4_no-fingering.pdf" type="application/pdf" aria-label="Download NieR:Automata — Soundtrack Medley, A4 — without fingering (PDF, 47 pages · 8.4 MB)">Download PDF</a>
+              </span>
+            </li>
+          </ul>
+          <a class="player" href="../nier-automata-medley/">Back to the song player</a>
+        </li>
+        <li class="song" id="silo-s2e4-outro">
+          <h2>Silo Season 2 Episode 4 Outro Song</h2>
+          <p class="credit">Music by Loney Dear</p>
+          <p class="song-note">This recording is not a piano — it has vocals, synths and percussion. The piano model declined to hear most of it, so this page is deliberately sparse. That is the finding, not a bug.</p>
+          <ul class="files">
+            <li class="file">
+              <span class="file-name">US Letter — with fingering</span>
+              <span class="file-facts">1 page · 149 KB</span>
+              <span class="actions">
+                <a class="open-pdf" href="silo-s2e4-outro_letter.pdf" target="_blank" rel="noopener" aria-label="Open Silo Season 2 Episode 4 Outro Song, US Letter — with fingering (PDF, 1 page · 149 KB)">Open PDF</a>
+                <a class="save-pdf" href="silo-s2e4-outro_letter.pdf" download="silo-s2e4-outro_letter.pdf" type="application/pdf" aria-label="Download Silo Season 2 Episode 4 Outro Song, US Letter — with fingering (PDF, 1 page · 149 KB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">US Letter — without fingering</span>
+              <span class="file-facts">1 page · 142 KB</span>
+              <span class="actions">
+                <a class="open-pdf" href="silo-s2e4-outro_letter_no-fingering.pdf" target="_blank" rel="noopener" aria-label="Open Silo Season 2 Episode 4 Outro Song, US Letter — without fingering (PDF, 1 page · 142 KB)">Open PDF</a>
+                <a class="save-pdf" href="silo-s2e4-outro_letter_no-fingering.pdf" download="silo-s2e4-outro_letter_no-fingering.pdf" type="application/pdf" aria-label="Download Silo Season 2 Episode 4 Outro Song, US Letter — without fingering (PDF, 1 page · 142 KB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">A4 — with fingering</span>
+              <span class="file-facts">1 page · 149 KB</span>
+              <span class="actions">
+                <a class="open-pdf" href="silo-s2e4-outro_a4.pdf" target="_blank" rel="noopener" aria-label="Open Silo Season 2 Episode 4 Outro Song, A4 — with fingering (PDF, 1 page · 149 KB)">Open PDF</a>
+                <a class="save-pdf" href="silo-s2e4-outro_a4.pdf" download="silo-s2e4-outro_a4.pdf" type="application/pdf" aria-label="Download Silo Season 2 Episode 4 Outro Song, A4 — with fingering (PDF, 1 page · 149 KB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">A4 — without fingering</span>
+              <span class="file-facts">1 page · 142 KB</span>
+              <span class="actions">
+                <a class="open-pdf" href="silo-s2e4-outro_a4_no-fingering.pdf" target="_blank" rel="noopener" aria-label="Open Silo Season 2 Episode 4 Outro Song, A4 — without fingering (PDF, 1 page · 142 KB)">Open PDF</a>
+                <a class="save-pdf" href="silo-s2e4-outro_a4_no-fingering.pdf" download="silo-s2e4-outro_a4_no-fingering.pdf" type="application/pdf" aria-label="Download Silo Season 2 Episode 4 Outro Song, A4 — without fingering (PDF, 1 page · 142 KB)">Download PDF</a>
+              </span>
+            </li>
+          </ul>
+          <a class="player" href="../silo-s2e4-outro/">Back to the song player</a>
+        </li>
+        <li class="song" id="somewhere-out-there">
+          <h2>Somewhere Out There</h2>
+          <p class="credit">Piano solo by Kyle Landry · music by James Horner and Barry Mann</p>
+          <ul class="files">
+            <li class="file">
+              <span class="file-name">US Letter — with fingering</span>
+              <span class="file-facts">14 pages · 2.3 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="somewhere-out-there_letter.pdf" target="_blank" rel="noopener" aria-label="Open Somewhere Out There, US Letter — with fingering (PDF, 14 pages · 2.3 MB)">Open PDF</a>
+                <a class="save-pdf" href="somewhere-out-there_letter.pdf" download="somewhere-out-there_letter.pdf" type="application/pdf" aria-label="Download Somewhere Out There, US Letter — with fingering (PDF, 14 pages · 2.3 MB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">US Letter — without fingering</span>
+              <span class="file-facts">12 pages · 2.0 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="somewhere-out-there_letter_no-fingering.pdf" target="_blank" rel="noopener" aria-label="Open Somewhere Out There, US Letter — without fingering (PDF, 12 pages · 2.0 MB)">Open PDF</a>
+                <a class="save-pdf" href="somewhere-out-there_letter_no-fingering.pdf" download="somewhere-out-there_letter_no-fingering.pdf" type="application/pdf" aria-label="Download Somewhere Out There, US Letter — without fingering (PDF, 12 pages · 2.0 MB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">A4 — with fingering</span>
+              <span class="file-facts">13 pages · 2.3 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="somewhere-out-there_a4.pdf" target="_blank" rel="noopener" aria-label="Open Somewhere Out There, A4 — with fingering (PDF, 13 pages · 2.3 MB)">Open PDF</a>
+                <a class="save-pdf" href="somewhere-out-there_a4.pdf" download="somewhere-out-there_a4.pdf" type="application/pdf" aria-label="Download Somewhere Out There, A4 — with fingering (PDF, 13 pages · 2.3 MB)">Download PDF</a>
+              </span>
+            </li>
+            <li class="file">
+              <span class="file-name">A4 — without fingering</span>
+              <span class="file-facts">11 pages · 2.0 MB</span>
+              <span class="actions">
+                <a class="open-pdf" href="somewhere-out-there_a4_no-fingering.pdf" target="_blank" rel="noopener" aria-label="Open Somewhere Out There, A4 — without fingering (PDF, 11 pages · 2.0 MB)">Open PDF</a>
+                <a class="save-pdf" href="somewhere-out-there_a4_no-fingering.pdf" download="somewhere-out-there_a4_no-fingering.pdf" type="application/pdf" aria-label="Download Somewhere Out There, A4 — without fingering (PDF, 11 pages · 2.0 MB)">Download PDF</a>
+              </span>
+            </li>
+          </ul>
+          <a class="player" href="../somewhere-out-there/">Back to the song player</a>
+        </li>
+      </ul>
+
+      <footer>
+        Build alpha-1-qa-rc2+68f6c56. Each PDF names this build and its song at the foot of
+        every page. Engraved with OpenSheetMusicDisplay from the same MusicXML the song pages
+        load. The original recordings are not stored on this site.
+      </footer>
+    </main>
+  </body>
+</html>
